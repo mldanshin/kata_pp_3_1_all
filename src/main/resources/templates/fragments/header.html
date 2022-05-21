@@ -1,0 +1,15 @@
+<header th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <nav>
+        <ul>
+            <li>
+                <a th:href="@{/}">На главную</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <div th:replace="fragments/login-link::login"></div>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <div th:replace="fragments/logout::logout"></div>
+            </li>
+        </ul>
+    </nav>
+</header>

@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example</title>
-</head>
-<body>
-<h1>Welcome to Index PAGE!</h1>
-
-
-</body>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Главная</title>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li>
+                    <a th:href="@{/user}">Страница юзера</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin}">Страница администратора</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <div th:replace="fragments/login-link::login"></div>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <div th:replace="fragments/logout::logout"></div>
+                </li>
+            </ul>
+        </nav>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>статус</th>
+                    <th>логин</th>
+                    <th>пароль</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Админ</td>
+                    <td>admin</td>
+                    <td>admin</td>
+                </tr>
+                <tr>
+                    <td>Обычный пользователь</td>
+                    <td>user</td>
+                    <td>user</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </body>
 </html>

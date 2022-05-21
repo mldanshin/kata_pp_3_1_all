@@ -1,0 +1,22 @@
+<form th:fragment="form (action, user, roles)" th:action="@{${action}}" th:object="${user}" method="post">
+    <input name="id" type="hidden" th:field="*{id}" />
+    <label for="input-first-name">Имя</label>
+    <input id="input-first-name" type="text" placeholder="Введите имя" th:field="*{firstName}" maxlength="255" autofocus required />
+    <label for="input-last-name">Фамилия</label>
+    <input id="input-last-name" type="text" placeholder="Введите фамилию" th:field="*{lastName}" maxlength="255" required />
+    <label for="input-username">Логин</label>
+    <input id="input-username" type="text" placeholder="Введите логин" th:field="*{username}" maxlength="255" required />
+    <label for="input-password">Пароль</label>
+    <input id="input-password" type="text" placeholder="Введите пароль" name="password" maxlength="255" required />
+    <label for="input-roles">Роли</label>
+    <select id="input-roles" name="userRoles" multiple required>
+        <option
+                th:each="role:${roles}"
+                th:value="${role.id}"
+                th:text="${role.name}"
+                th:selected="${user.roles.contains(role)}"
+        >
+        </option>
+    </select>
+    <input type="submit" value="Сохранить" />
+</form>
