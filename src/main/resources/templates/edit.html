@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Редактор юзера</title>
-    </head>
+    <th:block th:replace="fragments/head::head('Edit')" />
     <body>
-        <div th:replace="fragments/header::header"></div>
-        <div th:replace="fragments/form::form('/admin/update', ${user}, ${roles})"></div>
+        <th:block th:replace="fragments/header::header(${authenticationPrincipal})" />
+        <th:block th:replace="fragments/form::form('/admin/update', ${user}, ${roles})" />
     </body>
 </html>

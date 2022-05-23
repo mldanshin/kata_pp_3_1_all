@@ -1,55 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Список юзеров</title>
-    </head>
-    <body>
-        <div th:replace="fragments/header::header"></div>
-        <div>
-            <a th:href="@{/admin/create}">Создать</a>
-        </div>
-        <div th:unless="${users.isEmpty()}">
-            <table>
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Логин</th>
-                    <th>Пароль</th>
-                    <th>Роли</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user:${users}">
-                    <td th:text="${user.getId()}"></td>
-                    <td th:text="${user.getFirstName()}"></td>
-                    <td th:text="${user.getLastName()}"></td>
-                    <td th:text="${user.getUsername()}"></td>
-                    <td th:text="${user.getPassword()}"></td>
-                    <td>
-                        <p th:each="role:${user.getRoles()}" th:text="${role.getName()}">
-                        </p>
-                    </td>
-                    <td>
-                        <a th:href="@{'/admin/' + ${user.getId()}}">Просмотр</a>
-                    </td>
-                    <td>
-                        <a th:href="@{'/admin/edit/' + ${user.getId()}}">Изменение</a>
-                    </td>
-                    <td>
-                        <a th:href="@{'/admin/delete/' + ${user.getId()}}">Удаление</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div th:if="${users.isEmpty()}">
-            Юзеры не найдены.
+    <th:block th:replace="fragments/head::head('Admin panel')" />
+    <body class="vh-100">
+        <th:block th:replace="fragments/header::header(${authenticationPrincipal})" />
+        <div class="row h-100 me-0">
+            <th:block th:replace="fragments/nav::nav(${authenticationPrincipal}, 'admin')" />
+            <th:block th:replace="fragments/main::main('Admin panel', ~{fragments/admin::list-body(${users})})" />
         </div>
     </body>
 </html>

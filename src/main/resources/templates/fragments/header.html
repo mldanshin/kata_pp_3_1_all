@@ -1,15 +1,13 @@
-<header th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <nav>
-        <ul>
-            <li>
-                <a th:href="@{/}">На главную</a>
-            </li>
-            <li sec:authorize="!isAuthenticated()">
-                <div th:replace="fragments/login-link::login"></div>
-            </li>
-            <li sec:authorize="isAuthenticated()">
-                <div th:replace="fragments/logout::logout"></div>
-            </li>
-        </ul>
-    </nav>
+<header class="d-flex flex-row justify-content-between px-3 py-2" style="background: var(--bs-gray-800)" th:fragment="header (authenticationPrincipal)" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="text-white" sec:authorize="isAuthenticated()">
+        <span class="align-middle fw-bold" th:text="${authenticationPrincipal.username}"></span>
+        <span class="align-middle">with roles:</span>
+        <span class="align-middle" th:each="role:${authenticationPrincipal.roles}" th:text="${role.name}"></span>
+    </div>
+    <div>
+        <a class="text-white-50 small" sec:authorize="!isAuthenticated()" th:href="@{/login}">Войти</a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <input class="border-0 bg-transparent text-white-50 small" type="submit" value="Logout"/>
+        </form>
+    </div>
 </header>

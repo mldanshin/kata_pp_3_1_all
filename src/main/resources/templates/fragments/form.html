@@ -1,22 +1,35 @@
-<form th:fragment="form (action, user, roles)" th:action="@{${action}}" th:object="${user}" method="post">
-    <input name="id" type="hidden" th:field="*{id}" />
-    <label for="input-first-name">Имя</label>
-    <input id="input-first-name" type="text" placeholder="Введите имя" th:field="*{firstName}" maxlength="255" autofocus required />
-    <label for="input-last-name">Фамилия</label>
-    <input id="input-last-name" type="text" placeholder="Введите фамилию" th:field="*{lastName}" maxlength="255" required />
-    <label for="input-username">Логин</label>
-    <input id="input-username" type="text" placeholder="Введите логин" th:field="*{username}" maxlength="255" required />
-    <label for="input-password">Пароль</label>
-    <input id="input-password" type="text" placeholder="Введите пароль" name="password" maxlength="255" required />
-    <label for="input-roles">Роли</label>
-    <select id="input-roles" name="userRoles" multiple required>
-        <option
+<form class="d-flex flex-column justify-content-center text-center" th:fragment="form (mode, action, buttons, user, roles)" th:action="@{${action}}" th:object="${user}" method="post">
+    <div class="d-flex flex-column mb-3" th:unless="${mode} == 'create'">
+        <label class="fw-bold" for="input-id"></label>
+        <input id="input-id" name="id" th:field="*{id}" disabled />
+    </div>
+    <div class="d-flex flex-column mb-3">
+        <label class="fw-bold" for="input-first-name">First name</label>
+        <input id="input-first-name" type="text" placeholder="First name" th:field="*{firstName}" maxlength="255" autofocus required />
+    </div>
+    <div class="d-flex flex-column mb-3">
+        <label class="fw-bold" for="input-last-name">Last name</label>
+        <input id="input-last-name" type="text" placeholder="Last name" th:field="*{lastName}" maxlength="255" required autocomplete />
+    </div>
+    <div class="d-flex flex-column mb-3">
+        <label class="fw-bold" for="input-username">Login</label>
+        <input id="input-username" type="text" placeholder="Login" th:field="*{username}" maxlength="255" required autocomplete />
+    </div>
+    <div class="d-flex flex-column mb-3" th:unless="${mode} == 'delete'">
+        <label class="fw-bold" for="input-password">Password</label>
+        <input id="input-password" type="password" placeholder="Password" name="password" maxlength="255" required />
+    </div>
+    <div class="d-flex flex-column mb-3">
+        <label class="fw-bold" for="input-roles">Role</label>
+        <select class="form-select form-select-sm overflow-scroll" size="2" id="input-roles" name="userRoles" multiple required>
+            <option
                 th:each="role:${roles}"
                 th:value="${role.id}"
                 th:text="${role.name}"
                 th:selected="${user.roles.contains(role)}"
-        >
-        </option>
-    </select>
-    <input type="submit" value="Сохранить" />
+            >
+            </option>
+        </select>
+    </div>
+    <th:block th:replace="${buttons}" />
 </form>

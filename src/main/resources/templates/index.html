@@ -3,8 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <title>Главная</title>
+        <th:block th:replace="fragments/style::style" />
     </head>
     <body>
+        <div>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Войти</a>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
         <nav>
             <ul>
                 <li>
@@ -12,12 +19,6 @@
                 </li>
                 <li>
                     <a th:href="@{/admin}">Страница администратора</a>
-                </li>
-                <li sec:authorize="!isAuthenticated()">
-                    <div th:replace="fragments/login-link::login"></div>
-                </li>
-                <li sec:authorize="isAuthenticated()">
-                    <div th:replace="fragments/logout::logout"></div>
                 </li>
             </ul>
         </nav>

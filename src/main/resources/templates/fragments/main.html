@@ -1,0 +1,4 @@
+<div class="col-10 px-5 py-4 bg-light" th:fragment="main(header, body)">
+    <h1 class="h1" th:text="${header}"></h1>
+    <th:block th:replace="${body}" />
+</div>

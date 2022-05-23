@@ -1,0 +1,4 @@
+<nav class="col p-0 mt-3 ps-2 list-group list-group-flush" th:fragment="nav(authenticationPrincipal, activeLink)">
+    <a th:class="'list-group-item' + (${activeLink} == 'admin' ? ' active' : ' text-primary')" th:if="${authenticationPrincipal.isAdmin()}" th:href="@{/admin}">Admin</a>
+    <a th:class="'list-group-item' + (${activeLink} == 'user' ? ' active' : ' text-primary')" th:href="@{/user}">User</a>
+</nav>

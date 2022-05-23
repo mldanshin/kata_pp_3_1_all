@@ -11,8 +11,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(name="first_name", nullable = false)
     private String firstName;
+
     @Column(name="last_name", nullable = false)
     private String lastName;
 
@@ -22,7 +24,7 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String password;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
@@ -101,5 +103,15 @@ public class User implements UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isAdmin() {
+        for (Role role : roles) {
+            if (role.isAdmin()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

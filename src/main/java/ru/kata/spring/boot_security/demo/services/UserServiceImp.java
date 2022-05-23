@@ -1,7 +1,5 @@
 package ru.kata.spring.boot_security.demo.services;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
@@ -29,6 +27,14 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     @Override
+    public User getByUsername(String username) {
+        User user = dao.getByUsername(username);
+        user.getAuthorities().size();
+        return user;
+    }
+
+    @Transactional
+    @Override
     public void store(User user) {
         dao.store(user);
     }
@@ -43,16 +49,5 @@ public class UserServiceImp implements UserService {
     @Override
     public void delete(long id) {
         dao.delete(id);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = dao.getByUsername(username);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-
-        return user;
     }
 }
