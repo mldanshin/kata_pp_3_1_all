@@ -9,7 +9,8 @@
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Login</th>
+                    <th>Age</th>
+                    <th>Email</th>
                     <th>Role</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -17,19 +18,20 @@
                 </thead>
                 <tbody>
                 <tr class="border-top text-secondary align-middle text-dark" th:each="user:${users}">
-                    <td th:text="${user.getId()}"></td>
-                    <td th:text="${user.getFirstName()}"></td>
-                    <td th:text="${user.getLastName()}"></td>
-                    <td th:text="${user.getUsername()}"></td>
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.age}"></td>
+                    <td th:text="${user.username}"></td>
                     <td>
-                        <div th:each="role:${user.getRoles()}" th:text="${role.getName()}">
+                        <div th:each="role:${user.roles}" th:text="${role.name}">
                         </div>
                     </td>
                     <td>
-                        <a class="btn bg-info bg-opacity-75 text-white" th:href="@{'/admin/edit/' + ${user.getId()}}" role="button" >Edit</a>
+                        <a class="btn text-white" style="background-color: #23bec5" th:href="@{'/admin/edit/' + ${user.id}}" role="button" >Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger text-white" th:href="@{'/admin/delete/' + ${user.getId()}}" role="button" >Delete</a>
+                        <a class="btn btn-danger text-white" th:href="@{'/admin/delete/' + ${user.id}}" role="button" >Delete</a>
                     </td>
                 </tr>
                 </tbody>
@@ -43,20 +45,17 @@
     <div class="card">
         <div class="card-header h5">Add new user</div>
         <div class="card-body row justify-content-center">
-            <div class="col-4">
-                <th:block th:replace="fragments/form::form('create', '/admin/store', ~{::create-button}, ${user}, ${roles})" />
+            <div class="col-4 d-flex flex-column align-items-center">
+                <th:block th:replace="fragments/form::form('create', '/admin/store', ${user}, ${roles})" />
+                <input class="btn btn-success" type="submit" form="form" value="Add new user" />
             </div>
         </div>
     </div>
 </div>
 
-<div th:fragment="create-button">
-    <input class="btn btn-success" type="submit" value="Add new user" />
-</div>
-
 <ul class="nav nav-tabs" th:fragment="nav-tabs(active)">
     <li class="nav-item">
-        <a th:class="'nav-link' + (${active} == 'list' ? ' active' : '')" aria-current="true" href="#">Users table</a>
+        <a th:class="'nav-link' + (${active} == 'list' ? ' active' : '')" aria-current="true" th:href="@{/admin}">Users table</a>
     </li>
     <li class="nav-item">
         <a th:class="'nav-link' + (${active} == 'create' ? ' active' : '')" th:href="@{/admin/create}">New User</a>

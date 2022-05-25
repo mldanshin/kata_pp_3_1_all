@@ -18,6 +18,9 @@ public class User implements UserDetails {
     @Column(name="last_name", nullable = false)
     private String lastName;
 
+    @Column(name="age", nullable = false)
+    private byte age;
+
     @Column(unique = true, nullable = false)
     private String username;
 
@@ -52,6 +55,14 @@ public class User implements UserDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public byte getAge() {
+        return age;
+    }
+
+    public void setAge(byte age) {
+        this.age = age;
     }
 
     @Override

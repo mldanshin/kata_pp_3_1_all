@@ -32,7 +32,7 @@ public class AdminController {
     @GetMapping("/{id}")
     public String show(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getById(id));
-        return "show";
+        return "user-page";
     }
 
     @GetMapping("/create")
@@ -51,6 +51,7 @@ public class AdminController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("users", userService.getList());
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("roles", roleService.getList());
         return "edit";
@@ -64,8 +65,16 @@ public class AdminController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        userService.delete(id);
+    public String getFormDelete(@PathVariable Long id, Model model) {
+        model.addAttribute("users", userService.getList());
+        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("roles", roleService.getList());
+        return "delete";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@ModelAttribute("user") User user) {
+        userService.delete(user.getId());
         return "redirect:/admin";
     }
 

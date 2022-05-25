@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
     <th:block th:replace="fragments/head::head('Admin panel')" />
     <body class="vh-100">
         <th:block th:replace="fragments/header::header(${authenticationPrincipal})" />
@@ -11,15 +11,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">Edit user</h5>
+                        <h5 class="modal-title" id="modalLabel">Delete user</h5>
                         <a class="btn-close" th:href="@{/admin}"></a>
                     </div>
                     <div class="modal-body">
-                        <th:block th:replace="fragments/form::form('edit', '/admin/update', ${user}, ${roles})" />
+                        <th:block th:replace="fragments/form::form('delete', '/admin/delete', ${user}, ${roles})" />
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-secondary" th:href="@{/admin}">Close</a>
-                        <button class="btn btn-primary" type="submit" form="form">Edit</button>
+                        <button class="btn btn-danger" type="submit" form="form">Delete</button>
                     </div>
                 </div>
             </div>

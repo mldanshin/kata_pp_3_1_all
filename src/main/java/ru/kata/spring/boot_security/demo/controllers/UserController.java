@@ -22,6 +22,6 @@ public class UserController {
     @GetMapping("")
     public String index(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", service.getById(user.getId()));
-        return "show";
+        return "user-page";
     }
 }
