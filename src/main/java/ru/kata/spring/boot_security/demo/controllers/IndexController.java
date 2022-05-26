@@ -1,20 +1,21 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 import ru.kata.spring.boot_security.demo.models.User;
 
-@Controller
+@RestController
 public class IndexController {
     @GetMapping("/")
-    public String index(@AuthenticationPrincipal User user) {
+    public RedirectView index(@AuthenticationPrincipal User user) {
         if (user == null) {
-            return "redirect:/login";
+            return new RedirectView("/login");
         } else if (user.isAdmin()) {
-            return "redirect:/admin";
+            return new RedirectView("/admin");
         } else {
-            return "redirect:/user";
+            return new RedirectView("/user");
         }
     }
 }

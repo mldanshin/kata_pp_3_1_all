@@ -28,10 +28,10 @@
                         </div>
                     </td>
                     <td>
-                        <a class="btn text-white" style="background-color: #23bec5" th:href="@{'/admin/edit/' + ${user.id}}" role="button" >Edit</a>
+                        <a class="btn text-white" id="edit" style="background-color: #23bec5" th:href="@{'/admin/edit/' + ${user.id}}" role="button" th:data-url="@{'/admin/edit/' + ${user.id}}">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger text-white" th:href="@{'/admin/delete/' + ${user.id}}" role="button" >Delete</a>
+                        <a class="btn btn-danger text-white" id="link-delete" th:href="@{'/admin/delete/' + ${user.id}}" role="button" th:data-url="@{'/admin/delete/' + ${user.id}}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
@@ -55,9 +55,9 @@
 
 <ul class="nav nav-tabs" th:fragment="nav-tabs(active)">
     <li class="nav-item">
-        <a th:class="'nav-link' + (${active} == 'list' ? ' active' : '')" aria-current="true" th:href="@{/admin}">Users table</a>
+        <a th:class="'nav-link' + (${active} == 'list' ? ' active' : '')" id="list" aria-current="true" th:href="@{/admin/list}" th:data-url="@{/admin/list}">Users table</a>
     </li>
     <li class="nav-item">
-        <a th:class="'nav-link' + (${active} == 'create' ? ' active' : '')" th:href="@{/admin/create}">New User</a>
+        <a th:class="'nav-link' + (${active} == 'create' ? ' active' : '')" id="create" th:href="@{/admin/create}" th:data-url="@{/admin/create}">New User</a>
     </li>
 </ul>

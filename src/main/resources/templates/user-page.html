@@ -5,7 +5,9 @@
         <th:block th:replace="fragments/header::header(${user})" />
         <div class="row h-100 me-0">
             <th:block th:replace="fragments/nav::nav(${user}, 'user')" />
-            <th:block th:replace="fragments/main::main('User infarmation-page', ~{fragments/user::body(${user})})" />
+            <div class="col-10 px-5 py-4 bg-light" id="container">
+                <th:block th:replace="fragments/main::main('User infarmation-page', ~{fragments/user::body(${user})})" />
+            </div>
         </div>
     </body>
 </html>

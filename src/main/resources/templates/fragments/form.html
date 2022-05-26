@@ -1,4 +1,9 @@
-<form class="d-flex flex-column text-center" id="form" th:fragment="form (mode, action, user, roles)" th:action="@{${action}}" th:object="${user}" method="post">
+<form class="d-flex flex-column text-center" id="form" method="post" th:action="@{${action}}" th:fragment="form (mode, action, user, roles)" th:object="${user}" th:data-mode="${mode}" >
+    <div th:switch="${mode}">
+        <input th:case="'create'" type="hidden" name="_method" value="post" />
+        <input th:case="'edit'" type="hidden" name="_method" value="put" />
+        <input th:case="'delete'" type="hidden" name="_method" value="delete" />
+    </div>
     <div class="d-flex flex-column mb-3" th:unless="${mode} == 'create'">
         <label class="fw-bold" for="input-id">ID</label>
         <input class="form-control" id="input-id" th:field="*{id}" readonly />
